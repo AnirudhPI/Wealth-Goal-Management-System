@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserDataLoader {
+
     private final UserRepository userRepository;
 
     public UserDataLoader(UserRepository userRepository, BatchLoaderRegistry registry) {

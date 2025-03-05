@@ -1,0 +1,68 @@
+type Query {
+    getUser(id: ID!): User
+    getIncomes(userId: ID!): [Income]
+    getExpenses(userId: ID!): [Expense]
+    getInvestments(userId: ID!): [Investment]
+    getSavingsGoals(userId: ID!): [SavingsGoal]
+    getExpensesPaginated(userId: ID!, page: Int!, size: Int!, sortBy: String!): ExpensePage!
+}
+
+type Mutation {
+    createUser(username: String!, password: String!, role: String!): User
+    createIncome(userId: ID!, source: String!, amount: Float!, date: String!): Income
+    createExpense(userId: ID!, category: String!, amount: Float!, date: String!): Expense!
+    createInvestment(userId: ID!, type: String!, name: String!, amount: Float!, purchaseDate: String!, currentValue: Float!): Investment
+    updateInvestment(id: ID!, type: String!, name: String!, amount: Float!, purchaseDate: String!, currentValue: Float!): Investment
+    deleteInvestment(id: ID!): Boolean
+    createSavingsGoal(userId: ID!, description: String!, targetAmount: Float!, currentAmount: Float!, targetDate: String!): SavingsGoal
+    updateSavingsGoal(id: ID!, description: String!, targetAmount: Float!, currentAmount: Float!, targetDate: String!): SavingsGoal
+    deleteSavingsGoal(id: ID!): Boolean
+}
+
+type ExpensePage {
+    content: [Expense!]!
+    totalPages: Int!
+    totalElements: Int!
+    number: Int!
+    size: Int!
+}
+
+type User {
+    id: ID!
+    username: String!
+    role: String!
+}
+
+type Income {
+    id: ID!
+    source: String!
+    amount: Float!
+    date: String!
+    user: User!
+}
+
+type Expense {
+    id: ID!
+    category: String!
+    amount: Float!
+    date: String!
+    user: User!
+}
+
+type Investment {
+    id: ID!
+    type: String!
+    name: String!
+    amount: Float!
+    purchaseDate: String!
+    currentValue: Float!
+    user: User!
+}
+
+type SavingsGoal {
+    id: ID!
+    description: String!
+    targetAmount: Float!
+    currentAmount: Float!
+    targetDate: String!
+}
