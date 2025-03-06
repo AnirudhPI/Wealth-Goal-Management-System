@@ -1,5 +1,6 @@
 package com.systems.finance.resolver;
 
+import com.systems.finance.exception.UserNotFoundException;
 import com.systems.finance.model.*;
 import com.systems.finance.repository.*;
 import org.dataloader.DataLoader;
@@ -42,7 +43,8 @@ public class QueryResolver {
 
     @QueryMapping
     public User getUser(@Argument Long id) {
-        return userRepository.findById(id).orElse(null);
+
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @QueryMapping
